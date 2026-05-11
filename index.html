@@ -307,6 +307,9 @@
     .s4-quiz .q-num { background: #fce7f3; color: #be185d; }
     .s5-quiz .q-num { background: #dcfce7; color: #15803d; }
     .sn-5 { background: #15803d; }
+    .stage-s6 { background: #f5f3ff; } .stage-s6 h2 { color: #7c3aed; } .stage-s6 .s-badge { background: #ddd6fe; color: #5b21b6; }
+    .s6-quiz .q-num { background: #ede9fe; color: #7c3aed; }
+    .sn-6 { background: #7c3aed; }
 
     /* ── Stage Divider ── */
     .stage-divider { border: none; border-top: 2px dashed #e2e8f0; margin: 60px 0 48px; }
@@ -435,6 +438,27 @@
         <a class="nav-item" href="#s5-quiz">📝 練習題</a>
       </div>
     </div>
+
+    <!-- Stage 6 -->
+    <div class="nav-stage s6" id="nav-stage-6">
+      <button class="nav-stage-btn" onclick="toggleStage(this)">
+        <span class="stage-badge" style="background:#ede9fe;color:#7c3aed;">6</span> Git 指令速查
+        <span class="stage-perfect-badge" id="badge-perfect-s6">全對 🎉</span>
+        <span class="nav-score" id="nav-score-s6"></span>
+        <span class="chevron">▶</span>
+      </button>
+      <div class="nav-items">
+        <a class="nav-item" href="#s6-config" data-section="s6-config">設定與初始化</a>
+        <a class="nav-item" href="#s6-daily" data-section="s6-daily">日常操作</a>
+        <a class="nav-item" href="#s6-branch" data-section="s6-branch">分支管理</a>
+        <a class="nav-item" href="#s6-remote" data-section="s6-remote">遠端操作</a>
+        <a class="nav-item" href="#s6-log" data-section="s6-log">查看歷史</a>
+        <a class="nav-item" href="#s6-undo" data-section="s6-undo">復原操作</a>
+        <a class="nav-item" href="#s6-misc" data-section="s6-misc">其他實用指令</a>
+        <a class="nav-item" href="#s6-faq">❓ 常見問題</a>
+        <a class="nav-item" href="#s6-quiz">📝 練習題</a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -444,7 +468,7 @@
 
   <!-- Hero -->
   <header class="hero">
-    <span class="badge">完整教學 · 四階段</span>
+    <span class="badge">完整教學 · 六階段</span>
     <h1>GitHub 使用教學指南</h1>
     <p>從完全新手到進階協作，一頁搞定 GitHub 所有核心技能。</p>
   </header>
@@ -2288,9 +2312,467 @@ Thumbs.db</code></pre>
     </div>
   </section>
 
+  <!-- ══════════════════════════════════════════
+       STAGE 6 · Git 指令速查
+  ══════════════════════════════════════════ -->
+  <hr class="stage-divider">
+  <div class="stage-header stage-s6">
+    <span class="s-badge">第六階段</span>
+    <h2>Git 指令速查</h2>
+  </div>
+
+  <!-- S6-1 設定與初始化 -->
+  <section class="section" id="s6-config">
+    <div class="section-header">
+      <div class="step-num sn-6">1</div>
+      <h2>設定與初始化：git config、git init</h2>
+    </div>
+    <h3>git config — 設定使用者資訊</h3>
+    <p>在開始使用 Git 之前，需先設定名稱與 Email，這些資訊會出現在每一個 commit 記錄中。</p>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git config --global user.name "你的名字"</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git config --global user.email "email@example.com"</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git config --global core.editor "code --wait"</span>  <span class="term-out"># 設定編輯器為 VS Code</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git config --list</span>                                <span class="term-out"># 列出所有生效設定</span></code></pre></div>
+    </div>
+    <table class="config-table">
+      <tr><th>參數</th><th>說明</th></tr>
+      <tr><td><code>--global</code></td><td>套用到目前使用者的所有 repo（最常用）</td></tr>
+      <tr><td><code>--local</code></td><td>只套用到目前 repo（預設，優先權最高）</td></tr>
+      <tr><td><code>--system</code></td><td>套用到系統所有使用者</td></tr>
+      <tr><td><code>--list</code></td><td>列出所有生效的設定值</td></tr>
+    </table>
+    <h3>git init — 建立新 Repo</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git init</span>                   <span class="term-out"># 在目前目錄初始化</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git init my-project</span>        <span class="term-out"># 建立新資料夾並初始化</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git init --bare server.git</span> <span class="term-out"># 建立裸 repo（用於伺服器）</span></code></pre></div>
+    </div>
+    <div class="callout tip"><span class="callout-icon">💡</span><div>設定優先順序：<code>--local</code> &gt; <code>--global</code> &gt; <code>--system</code>。可為不同專案設定不同 Email，例如工作專案用公司帳號，個人專案用私人帳號。</div></div>
+  </section>
+
+  <!-- S6-2 日常操作 -->
+  <section class="section" id="s6-daily">
+    <div class="section-header">
+      <div class="step-num sn-6">2</div>
+      <h2>日常操作：status、add、commit</h2>
+    </div>
+    <h3>git status — 查看目前狀態</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git status</span>      <span class="term-out"># 詳細狀態</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git status -s</span>   <span class="term-out"># 簡短格式：M=修改, ??=未追蹤</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git status -u</span>   <span class="term-out"># 顯示所有未追蹤的檔案</span></code></pre></div>
+    </div>
+    <h3>git add — 加入暫存區</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git add README.md</span>  <span class="term-out"># 加入特定檔案</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git add src/</span>        <span class="term-out"># 加入整個目錄</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git add .</span>           <span class="term-out"># 加入所有變更</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git add -p</span>          <span class="term-out"># 互動式選取部分修改（patch）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git add -u</span>          <span class="term-out"># 只加入已追蹤的修改，略過新增檔案</span></code></pre></div>
+    </div>
+    <table class="config-table">
+      <tr><th>參數</th><th>說明</th></tr>
+      <tr><td><code>-p</code> / <code>--patch</code></td><td>逐段（hunk）選取要暫存的內容，同一個檔案可以只加部分修改</td></tr>
+      <tr><td><code>-u</code> / <code>--update</code></td><td>更新所有已追蹤的檔案，略過新增的未追蹤檔案</td></tr>
+      <tr><td><code>-A</code> / <code>--all</code></td><td>包含新增、修改、刪除，等同 <code>git add .</code></td></tr>
+    </table>
+    <h3>git commit — 提交</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git commit -m "feat: 新增登入功能"</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git commit -am "fix: 修正 null 錯誤"</span>   <span class="term-out"># add + commit（只對已追蹤檔案）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git commit --amend</span>                      <span class="term-out"># 修改最後一個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git commit --amend --no-edit</span>            <span class="term-out"># 修改內容但保留原訊息</span></code></pre></div>
+    </div>
+    <div class="callout warn"><span class="callout-icon">⚠️</span><div><code>--amend</code> 會改寫歷史，若已 push 到遠端請避免使用，否則需要 force push，會影響其他協作者。</div></div>
+  </section>
+
+  <!-- S6-3 分支管理 -->
+  <section class="section" id="s6-branch">
+    <div class="section-header">
+      <div class="step-num sn-6">3</div>
+      <h2>分支管理：branch、switch、merge、rebase</h2>
+    </div>
+    <h3>git branch — 管理分支</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git branch</span>                    <span class="term-out"># 列出本地分支（* 標示目前）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git branch -a</span>                 <span class="term-out"># 列出本地與遠端分支</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git branch feature/login</span>     <span class="term-out"># 建立新分支（不切換）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git branch -d feature/login</span>  <span class="term-out"># 刪除分支（需已合併）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git branch -D feature/login</span>  <span class="term-out"># 強制刪除（未合併也可）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git branch -m old new</span>        <span class="term-out"># 重新命名分支</span></code></pre></div>
+    </div>
+    <h3>git switch — 切換分支（Git 2.23+ 新語法）</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git switch main</span>              <span class="term-out"># 切換到 main</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git switch -c feature/login</span>  <span class="term-out"># 建立並切換（舊語法：checkout -b）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git switch -</span>                 <span class="term-out"># 切回上一個分支</span></code></pre></div>
+    </div>
+    <h3>git merge — 合併分支</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git merge feature/login</span>           <span class="term-out"># 合併到目前分支</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git merge --no-ff feature/login</span>   <span class="term-out"># 強制建立 merge commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git merge --squash feature/login</span>  <span class="term-out"># 壓縮成一個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git merge --abort</span>                 <span class="term-out"># 有衝突時放棄合併</span></code></pre></div>
+    </div>
+    <table class="config-table">
+      <tr><th>merge 參數</th><th>說明</th></tr>
+      <tr><td><code>--no-ff</code></td><td>保留分支歷史，即使可以 fast-forward 也建立 merge commit</td></tr>
+      <tr><td><code>--squash</code></td><td>把分支所有 commit 壓縮成一個，需手動再 commit</td></tr>
+      <tr><td><code>--abort</code></td><td>遇到衝突時取消整個合併</td></tr>
+    </table>
+    <h3>git rebase — 變基</h3>
+    <p>將目前分支的 commit「搬移」到另一個基礎點，讓歷史更線性。</p>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git rebase main</span>        <span class="term-out"># 把目前分支接到 main 最新點</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git rebase -i HEAD~3</span>   <span class="term-out"># 互動式整理最近 3 個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git rebase --abort</span>     <span class="term-out"># 中止</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git rebase --continue</span>  <span class="term-out"># 解完衝突後繼續</span></code></pre></div>
+    </div>
+    <table class="config-table">
+      <tr><th>互動模式（-i）指令</th><th>說明</th></tr>
+      <tr><td><code>pick</code></td><td>保留此 commit</td></tr>
+      <tr><td><code>reword</code></td><td>修改 commit 訊息</td></tr>
+      <tr><td><code>squash</code></td><td>與上一個 commit 合併</td></tr>
+      <tr><td><code>drop</code></td><td>刪除此 commit</td></tr>
+    </table>
+    <div class="callout danger"><span class="callout-icon">🚨</span><div>rebase 會改寫 commit 歷史。若分支已推送到遠端並有其他人使用，請勿對其執行 rebase，否則會造成協作者的歷史衝突。</div></div>
+  </section>
+
+  <!-- S6-4 遠端操作 -->
+  <section class="section" id="s6-remote">
+    <div class="section-header">
+      <div class="step-num sn-6">4</div>
+      <h2>遠端操作：remote、fetch、pull、push</h2>
+    </div>
+    <h3>git remote — 管理遠端連結</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git remote -v</span>                              <span class="term-out"># 列出所有遠端與 URL</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git remote add origin https://github.com/…</span>  <span class="term-out"># 新增遠端</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git remote remove origin</span>                    <span class="term-out"># 移除遠端</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git remote rename origin upstream</span>           <span class="term-out"># 重新命名</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git remote set-url origin https://…</span>         <span class="term-out"># 更改 URL</span></code></pre></div>
+    </div>
+    <h3>git fetch — 抓取但不合併</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git fetch</span>          <span class="term-out"># 抓取預設遠端（origin）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git fetch --all</span>    <span class="term-out"># 抓取所有遠端</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git fetch --prune</span>  <span class="term-out"># 刪除本地已不存在於遠端的追蹤分支</span></code></pre></div>
+    </div>
+    <h3>git pull — fetch + merge</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git pull</span>               <span class="term-out"># 等同 fetch + merge</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git pull --rebase</span>      <span class="term-out"># 用 rebase 代替 merge，歷史更線性</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git pull origin main</span>  <span class="term-out"># 明確指定遠端與分支</span></code></pre></div>
+    </div>
+    <h3>git push — 推送到遠端</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git push origin main</span>               <span class="term-out"># 推送 main 分支</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git push -u origin feature/login</span>   <span class="term-out"># 推送並設定追蹤（之後可直接 git push）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git push --force-with-lease</span>        <span class="term-out"># 安全的強制推送</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git push origin --delete old-branch</span>  <span class="term-out"># 刪除遠端分支</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git push --tags</span>                    <span class="term-out"># 推送所有 tag</span></code></pre></div>
+    </div>
+    <div class="callout tip"><span class="callout-icon">💡</span><div>強制推送請用 <code>--force-with-lease</code> 而非 <code>-f</code>。前者在推送前會確認遠端沒有你未知的新 commit，避免覆蓋他人工作。</div></div>
+  </section>
+
+  <!-- S6-5 查看歷史 -->
+  <section class="section" id="s6-log">
+    <div class="section-header">
+      <div class="step-num sn-6">5</div>
+      <h2>查看歷史：log、diff、show、blame</h2>
+    </div>
+    <h3>git log — 瀏覽 commit 記錄</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git log --oneline</span>               <span class="term-out"># 每個 commit 一行</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git log --oneline --graph --all</span>  <span class="term-out"># 所有分支的圖形化歷史</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git log --author="姓名"</span>         <span class="term-out"># 篩選作者</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git log --since="2 weeks ago"</span>   <span class="term-out"># 篩選時間</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git log -p</span>                      <span class="term-out"># 顯示每個 commit 的 diff</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git log -- path/to/file</span>         <span class="term-out"># 只看某個檔案的歷史</span></code></pre></div>
+    </div>
+    <h3>git diff — 比較差異</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git diff</span>                  <span class="term-out"># 工作目錄 vs 暫存區</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git diff --staged</span>         <span class="term-out"># 暫存區 vs 最後一個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git diff main feature/x</span>  <span class="term-out"># 兩個分支之間的差異</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git diff HEAD~2</span>           <span class="term-out"># 與兩個 commit 前比較</span></code></pre></div>
+    </div>
+    <h3>git show 與 git blame</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git show abc1234</span>              <span class="term-out"># 查看特定 commit 的詳細內容</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git show HEAD~1</span>               <span class="term-out"># 查看上一個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git blame README.md</span>           <span class="term-out"># 查看每行是誰、何時修改</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git blame -L 10,20 README.md</span>  <span class="term-out"># 只看第 10~20 行</span></code></pre></div>
+    </div>
+    <div class="callout info"><span class="callout-icon">ℹ️</span><div>查詢完整說明可直接在終端機執行 <code>git help &lt;指令名稱&gt;</code>（例如 <code>git help log</code>），或加 <code>--help</code> 旗標（例如 <code>git log --help</code>）。</div></div>
+  </section>
+
+  <!-- S6-6 復原操作 -->
+  <section class="section" id="s6-undo">
+    <div class="section-header">
+      <div class="step-num sn-6">6</div>
+      <h2>復原操作：restore、reset、revert</h2>
+    </div>
+    <h3>git restore — 還原工作目錄或暫存區（Git 2.23+）</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git restore README.md</span>           <span class="term-out"># 丟棄工作目錄的修改</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git restore --staged README.md</span>  <span class="term-out"># 從暫存區移除（unstage）</span></code></pre></div>
+    </div>
+    <h3>git reset — 移動 HEAD</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git reset HEAD~1</span>         <span class="term-out"># 撤銷 commit，修改回工作目錄（--mixed 預設）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git reset --soft HEAD~1</span>  <span class="term-out"># 撤銷 commit，修改保留在暫存區</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git reset --hard HEAD~1</span>  <span class="term-out"># 撤銷 commit，丟棄所有修改（危險！）</span></code></pre></div>
+    </div>
+    <table class="config-table">
+      <tr><th>模式</th><th>HEAD</th><th>暫存區</th><th>工作目錄</th></tr>
+      <tr><td><code>--soft</code></td><td>移動</td><td>不變</td><td>不變</td></tr>
+      <tr><td><code>--mixed</code>（預設）</td><td>移動</td><td>清除</td><td>不變</td></tr>
+      <tr><td><code>--hard</code></td><td>移動</td><td>清除</td><td>清除</td></tr>
+    </table>
+    <h3>git revert — 安全撤銷（保留歷史）</h3>
+    <p>revert 不改寫歷史，而是建立一個「反向 commit」來抵消舊的改動，適合已推送到遠端的情況。</p>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git revert HEAD</span>           <span class="term-out"># 撤銷最後一個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git revert abc1234</span>        <span class="term-out"># 撤銷特定 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git revert HEAD~3..HEAD</span>   <span class="term-out"># 撤銷最近 3 個 commit</span></code></pre></div>
+    </div>
+    <div class="callout warn"><span class="callout-icon">⚠️</span><div><strong>reset 還是 revert？</strong> 未推送到遠端 → 可用 <code>reset</code>（<code>--hard</code> 請謹慎）。已推送到遠端 → 使用 <code>revert</code>，不改寫共享歷史，不影響其他協作者。</div></div>
+  </section>
+
+  <!-- S6-7 其他實用指令 -->
+  <section class="section" id="s6-misc">
+    <div class="section-header">
+      <div class="step-num sn-6">7</div>
+      <h2>其他實用指令：stash、tag、cherry-pick、bisect</h2>
+    </div>
+    <h3>git stash — 暫存未完成的修改</h3>
+    <p>需要緊急切換分支處理 bug，又不想 commit 當前未完成工作時使用。</p>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git stash</span>                    <span class="term-out"># 儲存工作目錄與暫存區</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git stash push -m "WIP 登入"</span>  <span class="term-out"># 附說明</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git stash list</span>               <span class="term-out"># 列出所有 stash</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git stash pop</span>                <span class="term-out"># 取出最新 stash 並刪除</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git stash apply stash@{1}</span>    <span class="term-out"># 取出特定 stash（保留 stash）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git stash drop stash@{0}</span>     <span class="term-out"># 刪除特定 stash</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git stash clear</span>              <span class="term-out"># 清除所有 stash</span></code></pre></div>
+    </div>
+    <h3>git tag — 標記版本</h3>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git tag v1.0.0</span>                   <span class="term-out"># 輕量 tag</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git tag -a v1.0.0 -m "正式版"</span>    <span class="term-out"># 附注 tag（推薦，含作者與時間）</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git tag</span>                           <span class="term-out"># 列出所有 tag</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git push origin v1.0.0</span>           <span class="term-out"># 推送特定 tag</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git push --tags</span>                   <span class="term-out"># 推送所有 tag</span></code></pre></div>
+    </div>
+    <h3>git cherry-pick — 複製特定 commit</h3>
+    <p>把某個分支上的特定 commit 複製到目前分支，不需要合併整個分支。</p>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git cherry-pick abc1234</span>           <span class="term-out"># 複製一個 commit</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git cherry-pick abc1234..def5678</span>  <span class="term-out"># 複製一段範圍</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git cherry-pick -n abc1234</span>        <span class="term-out"># 複製但不自動 commit</span></code></pre></div>
+    </div>
+    <h3>git bisect — 二分搜尋找 bug</h3>
+    <p>不知道哪個 commit 引入了 bug 時，讓 Git 自動用二分法縮小範圍。</p>
+    <div class="terminal">
+      <div class="term-header"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">bash</span></div>
+      <div class="term-body"><pre><code><span class="term-prompt">$</span> <span class="term-cmd">git bisect start</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git bisect bad</span>            <span class="term-out"># 目前版本有 bug</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git bisect good v1.0.0</span>   <span class="term-out"># 這個版本正常</span>
+<span class="term-out"># Git 自動切到中間 commit，測試後繼續標記：</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git bisect good</span>   <span class="term-out"># 或 git bisect bad</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git bisect reset</span>          <span class="term-out"># 找到後結束，回到原本 HEAD</span></code></pre></div>
+    </div>
+    <div class="callout info"><span class="callout-icon">ℹ️</span><div>官方文件與更多資源：<br>• Git 完整文件：<a href="https://git-scm.com/docs" target="_blank">git-scm.com/docs</a><br>• Pro Git 書籍（繁中）：<a href="https://git-scm.com/book/zh-tw/v2" target="_blank">git-scm.com/book/zh-tw/v2</a><br>• GitHub 指令速查表：<a href="https://training.github.com/downloads/zh_TW/github-git-cheat-sheet/" target="_blank">training.github.com</a></div></div>
+  </section>
+
+  <!-- S6-FAQ -->
+  <section class="section" id="s6-faq">
+    <div class="section-header">
+      <div class="step-num sn-6" style="background:#64748b;">?</div>
+      <h2>第六階段常見問題</h2>
+    </div>
+    <details>
+      <summary>git fetch 和 git pull 有什麼不同？</summary>
+      <div class="faq-body"><code>git fetch</code> 只把遠端的最新資料抓回本機，不會改動工作目錄和分支。<code>git pull</code> 則是 fetch + merge（或 rebase），會直接把遠端變更合併進來。建議先 <code>fetch</code> 後用 <code>git diff origin/main</code> 確認差異，再決定是否 merge。</div>
+    </details>
+    <details>
+      <summary>什麼時候用 merge，什麼時候用 rebase？</summary>
+      <div class="faq-body"><strong>merge</strong> 保留所有分支歷史，適合把功能分支合入 main，讓大家都能看到「這個功能什麼時候被合入」。<strong>rebase</strong> 整理歷史讓它更線性，適合在個人功能分支上「把 main 的最新更新接進來」，讓 PR 更容易審查。黃金法則：已推送到共享遠端的分支，不要對其 rebase。</div>
+    </details>
+    <details>
+      <summary>不小心 git reset --hard，修改都不見了怎麼辦？</summary>
+      <div class="faq-body">先別慌！Git 的 reflog 記錄了所有 HEAD 的移動歷史，只要沒超過約 90 天，通常都能救回：執行 <code>git reflog</code> 找到 reset 前的 commit hash，再執行 <code>git reset --hard &lt;hash&gt;</code> 即可還原。這是 Git 最強大的安全網之一。</div>
+    </details>
+    <details>
+      <summary>git stash pop 和 git stash apply 差在哪？</summary>
+      <div class="faq-body"><code>git stash pop</code> 取出最新的 stash 並從清單中刪除它。<code>git stash apply</code> 取出內容但保留 stash，可以重複套用到不同分支。通常用 <code>pop</code>；如果需要把相同修改套用到多個地方才用 <code>apply</code>。</div>
+    </details>
+  </section>
+
+  <!-- S6-QUIZ -->
+  <section class="section" id="s6-quiz">
+    <div class="section-header">
+      <div class="step-num sn-6" style="font-size:1.1rem;">📝</div>
+      <h2>練習題</h2>
+    </div>
+    <div class="quiz-reset-row"><button class="reset-btn" onclick="resetQuiz('s6')">重設本階段答題</button></div>
+    <div class="quiz-score-bar" id="score-bar-s6">
+      <span class="quiz-score-label">第六階段得分</span>
+      <div class="quiz-score-track"><div class="quiz-score-fill" id="score-fill-s6"></div></div>
+      <span class="quiz-score-num" id="score-num-s6">尚未作答</span>
+    </div>
+    <div class="quiz s6-quiz" id="quiz-container-s6">
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">1</span><code>git config --global user.email "a@b.com"</code> 中 <code>--global</code> 的作用是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q1" value="a"> A. 只套用到目前 repo</label></li>
+          <li><label><input type="radio" name="s6q1" value="b"> B. 套用到目前使用者的所有 repo</label></li>
+          <li><label><input type="radio" name="s6q1" value="c"> C. 套用到系統所有使用者</label></li>
+          <li><label><input type="radio" name="s6q1" value="d"> D. 上傳設定到 GitHub 帳號</label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q1','b',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q1"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">2</span>想只暫存某個檔案的「部分修改」（非整個檔案），應使用哪個指令？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q2" value="a"> A. <code>git add .</code></label></li>
+          <li><label><input type="radio" name="s6q2" value="b"> B. <code>git add -p</code></label></li>
+          <li><label><input type="radio" name="s6q2" value="c"> C. <code>git add -u</code></label></li>
+          <li><label><input type="radio" name="s6q2" value="d"> D. <code>git add -A</code></label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q2','b',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q2"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">3</span><code>git commit --amend</code> 的主要用途是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q3" value="a"> A. 建立新的空白 commit</label></li>
+          <li><label><input type="radio" name="s6q3" value="b"> B. 修改最後一個 commit 的內容或訊息</label></li>
+          <li><label><input type="radio" name="s6q3" value="c"> C. 合併最近兩個 commit</label></li>
+          <li><label><input type="radio" name="s6q3" value="d"> D. 刪除最後一個 commit</label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q3','b',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q3"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">4</span><code>git switch -c feature/login</code> 等同於哪個舊語法？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q4" value="a"> A. <code>git checkout feature/login</code></label></li>
+          <li><label><input type="radio" name="s6q4" value="b"> B. <code>git branch feature/login</code></label></li>
+          <li><label><input type="radio" name="s6q4" value="c"> C. <code>git checkout -b feature/login</code></label></li>
+          <li><label><input type="radio" name="s6q4" value="d"> D. <code>git branch -m feature/login</code></label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q4','c',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q4"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">5</span><code>git merge --no-ff</code> 和一般 merge 的差異是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q5" value="a"> A. 速度比一般 merge 更快</label></li>
+          <li><label><input type="radio" name="s6q5" value="b"> B. 即使可以 fast-forward 也強制建立 merge commit</label></li>
+          <li><label><input type="radio" name="s6q5" value="c"> C. 不會產生任何衝突</label></li>
+          <li><label><input type="radio" name="s6q5" value="d"> D. 只合併特定的檔案</label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q5','b',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q5"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">6</span>需要強制推送時，比 <code>git push -f</code> 更安全的做法是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q6" value="a"> A. <code>git push --all</code></label></li>
+          <li><label><input type="radio" name="s6q6" value="b"> B. <code>git push --tags</code></label></li>
+          <li><label><input type="radio" name="s6q6" value="c"> C. <code>git push --force-with-lease</code></label></li>
+          <li><label><input type="radio" name="s6q6" value="d"> D. <code>git push --prune</code></label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q6','c',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q6"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">7</span><code>git reset --hard HEAD~1</code> 執行後，結果是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q7" value="a"> A. 撤銷 commit，修改保留在暫存區</label></li>
+          <li><label><input type="radio" name="s6q7" value="b"> B. 撤銷 commit，修改保留在工作目錄</label></li>
+          <li><label><input type="radio" name="s6q7" value="c"> C. 撤銷 commit，並丟棄所有修改</label></li>
+          <li><label><input type="radio" name="s6q7" value="d"> D. 只修改 commit 訊息，不影響檔案</label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q7','c',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q7"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">8</span>已推送到遠端的 commit 需要撤銷，哪個指令最適合？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q8" value="a"> A. <code>git reset --hard</code></label></li>
+          <li><label><input type="radio" name="s6q8" value="b"> B. <code>git revert &lt;hash&gt;</code></label></li>
+          <li><label><input type="radio" name="s6q8" value="c"> C. <code>git branch -D</code></label></li>
+          <li><label><input type="radio" name="s6q8" value="d"> D. <code>git stash drop</code></label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q8','b',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q8"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">9</span><code>git stash pop</code> 和 <code>git stash apply</code> 的差別是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q9" value="a"> A. pop 比 apply 快</label></li>
+          <li><label><input type="radio" name="s6q9" value="b"> B. pop 取出後刪除 stash；apply 取出但保留 stash</label></li>
+          <li><label><input type="radio" name="s6q9" value="c"> C. apply 只能在同一分支使用</label></li>
+          <li><label><input type="radio" name="s6q9" value="d"> D. 兩者完全相同</label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q9','b',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q9"></div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q"><span class="q-num">10</span>不知道哪個 commit 引入了 bug，最有效率的工具是？</div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="s6q10" value="a"> A. <code>git log</code></label></li>
+          <li><label><input type="radio" name="s6q10" value="b"> B. <code>git blame</code></label></li>
+          <li><label><input type="radio" name="s6q10" value="c"> C. <code>git bisect</code></label></li>
+          <li><label><input type="radio" name="s6q10" value="d"> D. <code>git diff</code></label></li>
+        </ul>
+        <div class="quiz-check"><button class="check-btn" onclick="checkQuiz('s6q10','c',this)">確認答案</button></div>
+        <div class="quiz-result" id="res-s6q10"></div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
-    <p>GitHub 使用教學 · 完整五階段 · 繁體中文 · 2026</p>
+    <p>GitHub 使用教學 · 完整六階段 · 繁體中文 · 2026</p>
     <p style="margin-top: 6px;">從入門到實作，一頁掌握所有核心技能。</p>
   </footer>
 
@@ -2362,6 +2844,18 @@ Thumbs.db</code></pre>
       { name:'s5q8',  correct:'b', section:'s5-commit' },
       { name:'s5q9',  correct:'b', section:'s5-pages' },
       { name:'s5q10', correct:'c', section:'s5-advanced' },
+    ],
+    s6: [
+      { name:'s6q1',  correct:'b', section:'s6-config' },
+      { name:'s6q2',  correct:'b', section:'s6-daily' },
+      { name:'s6q3',  correct:'b', section:'s6-daily' },
+      { name:'s6q4',  correct:'c', section:'s6-branch' },
+      { name:'s6q5',  correct:'b', section:'s6-branch' },
+      { name:'s6q6',  correct:'c', section:'s6-remote' },
+      { name:'s6q7',  correct:'c', section:'s6-undo' },
+      { name:'s6q8',  correct:'b', section:'s6-undo' },
+      { name:'s6q9',  correct:'b', section:'s6-misc' },
+      { name:'s6q10', correct:'c', section:'s6-misc' },
     ],
   };
 
